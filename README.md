@@ -79,26 +79,24 @@ Client-server chat applications are foundational to real-time communication over
 ```
 import socket
 
-
 def client_program():
-    host = socket.gethostname()  # as both code is running on same pc
-    port = 5000  # socket server port number
+    host = socket.gethostname()
+    port = 5000 
 
-    client_socket = socket.socket()  # instantiate
-    client_socket.connect((host, port))  # connect to the server
+    client_socket = socket.socket() 
+    client_socket.connect((host, port))
 
-    message = input(" -> ")  # take input
+    message = input(" -> ") 
 
     while message.lower().strip() != 'bye':
-        client_socket.send(message.encode())  # send message
-        data = client_socket.recv(1024).decode()  # receive response
+        client_socket.send(message.encode()) 
+        data = client_socket.recv(1024).decode()
 
-        print('Received from server: ' + data)  # show in terminal
+        print('Received from server: ' + data)
 
-        message = input(" -> ")  # again take input
+        message = input(" -> ") 
 
-    client_socket.close()  # close the connection
-
+    client_socket.close() 
 
 if __name__ == '__main__':
     client_program()
@@ -107,43 +105,30 @@ if __name__ == '__main__':
 ```
 import socket
 def server_program():
-    # get the hostname
     host = socket.gethostname()
-    port = 5000  # initiate port no above 1024
-
-    server_socket = socket.socket()  # get instance
-    # look closely. The bind() function takes tuple as argument
-    server_socket.bind((host, port))  # bind host address and port together
-
-    # configure how many client the server can listen simultaneously
+    port = 5000 
+    server_socket = socket.socket()
+    server_socket.bind((host, port))
     server_socket.listen(2)
-    conn, address = server_socket.accept()  # accept new connection
+    conn, address = server_socket.accept()
     print("Connection from: " + str(address))
     while True:
-        # receive data stream. it won't accept data packet greater than 1024 bytes
         data = conn.recv(1024).decode()
         if not data:
-            # if data is not received break
             break
         print("from connected user: " + str(data))
         data = input(' -> ')
-        conn.send(data.encode())  # send data to the client
+        conn.send(data.encode())
 
-    conn.close()  # close the connection
+    conn.close() 
 
 
 if __name__ == '__main__':
     server_program()
 ```
 ## OUTPUT:
-### CLIENT :
-![CN ex1b out](https://github.com/user-attachments/assets/8eb2b50b-321b-4d94-9647-e712fa77a6b7)
 
-
-
-### SERVER :
-![CN ex1b out](https://github.com/user-attachments/assets/6a500810-3049-48ed-9a0b-c588f58867f2)
-
+![CN output 1 b](https://github.com/user-attachments/assets/b4dd1e7f-0818-48e6-9e6a-ca837fb7b31e)
 
 
 ## Result:
